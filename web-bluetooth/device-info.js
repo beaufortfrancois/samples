@@ -1,6 +1,4 @@
 function onFormSubmit() {
-  'use strict';
-
   let options = {filters: []};
 
   let filterService = document.getElementById('service').value;
