@@ -1,0 +1,40 @@
+---
+feature_name: Video conferencing / Media Session
+chrome_version: 91
+feature_id: 5744304695803904
+check_min_version: true
+index: index.html
+---
+
+<h3>Background</h3>
+<p>The <a href="https://web.dev/media-session">Media Session API</a> lets you
+handle video conferencing actions such as mute/unmute, turnon/turnoff camera,
+and hang up from a Picture-in-Picture window.</p>
+
+<style>
+  video { background: #1e2327; border-radius: 4px; width: 100%; } 
+</style>
+
+<button id="openCameraButton">Open camera</button>
+<video></video>
+
+{% include output_helper.html %}
+
+<script>
+  if (!('mediaSession' in navigator)) {
+    ChromeSamples.setStatus('The Media Session API is not yet available.');
+  }
+
+  // This prevents unnecessary errors when Media Session API is not available.
+  navigator.mediaSession = navigator.mediaSession || {};
+  navigator.mediaSession.setActionHandler = navigator.mediaSession.setActionHandler || function() {};
+  window.MediaMetadata = window.MediaMetadata || function() {};
+
+  log = ChromeSamples.log;
+</script>
+
+{% include js_snippet.html filename='video-conferencing.js' %}
+
+<script>
+  document.querySelector('#openCameraButton').addEventListener('click', onPlayButtonClick);
+</script>
